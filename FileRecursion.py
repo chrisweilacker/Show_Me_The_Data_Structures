@@ -17,18 +17,24 @@ def find_files(suffix, path):
     Returns:
        a list of paths
     """
-    returnList = list()
+    try:
+        returnList = list()
 
-    fileList = os.listdir(path)
+        fileList = os.listdir(path)
 
-    for file in fileList:
-        fullpath = path + '/' + file
-        if (os.path.isfile(fullpath)):
-            if (fullpath.endswith(suffix)):
-                returnList.append(fullpath)
-        else:
-            returnList.extend(find_files(suffix, fullpath))
+        for file in fileList:
+            fullpath = path + '/' + file
+            if (os.path.isfile(fullpath)):
+                if (fullpath.endswith(suffix)):
+                    returnList.append(fullpath)
+            else:
+                returnList.extend(find_files(suffix, fullpath))
 
-    return returnList
-
+        return returnList
+    except:
+        return []
 print(find_files('.c', '.'))
+
+print(find_files('.py', '.'))
+print(find_files('.py', './nonExistentFolder'))
+print(find_files('.none', '.'))

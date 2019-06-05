@@ -111,3 +111,7 @@ print(our_cache.get(5))       # return 5
 print(our_cache.get(6))       # return 6
 our_cache.set(7,7)
 print(our_cache.get(1))       # return -1 as was last retrieved/set item
+
+our_cache.set('my key', {'a nested object': 'works'})
+print(our_cache.get('my key')) #should return {'a nested object': 'works'}
+print(our_cache.get(2)) #should return -1
