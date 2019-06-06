@@ -43,21 +43,26 @@ class LinkedList:
 
 def union(llist_1, llist_2):
     # Your Solution Here
-    returnSet = set()
+    totalSet = set()
 
     cNode = llist_1.head
 
     while (cNode):
-        returnSet.add(cNode.value)
+        totalSet.add(cNode.value)
         cNode = cNode.next
 
     cNode = llist_2.head
 
     while (cNode):
-        returnSet.add(cNode.value)
+        totalSet.add(cNode.value)
         cNode = cNode.next
 
-    return returnSet
+    returnList = LinkedList()
+    
+    for item in totalSet:
+        returnList.append(item)
+
+    return returnList
     
     
 
@@ -78,7 +83,14 @@ def intersection(llist_1, llist_2):
         set2.add(cNode.value)
         cNode = cNode.next
 
-    return set1 & set2
+    intersectingSet = set1 & set2
+
+    returnList = LinkedList()
+    
+    for item in intersectingSet:
+        returnList.append(item)
+
+    return returnList
 
 
 # Test case 1
@@ -114,3 +126,20 @@ for i in element_2:
 
 print (union(linked_list_3,linked_list_4))
 print (intersection(linked_list_3,linked_list_4))
+
+# Test case 3
+
+linked_list_5 = LinkedList()
+linked_list_6 = LinkedList()
+
+element_1 = []
+element_2 = ""
+
+for i in element_1:
+    linked_list_3.append(i)
+
+for i in element_2:
+    linked_list_4.append(i)
+
+print (union(linked_list_5,linked_list_6))
+print (intersection(linked_list_5,linked_list_6))

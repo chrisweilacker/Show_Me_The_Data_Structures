@@ -16,7 +16,7 @@ class DoublyLinkedList:
             return
             
         self.tail.next = doubleNode
-        self.tail.next.previous = self.tail
+        doubleNode.previous = self.tail
         self.tail = self.tail.next
         return
 
@@ -28,7 +28,7 @@ class DoublyLinkedList:
 
         doubleNode.next = self.head    
         self.head.previous = doubleNode
-        self.head = self.head.previous
+        self.head = doubleNode
         return
 
     def pop(self):
@@ -48,11 +48,16 @@ class DoublyLinkedList:
         if doubleNode.previous == None:
             return
         else:
+            
             doubleNode.previous.next = doubleNode.next
             if doubleNode.next:
                 doubleNode.next.previous = doubleNode.previous
+            else:
+                self.tail = doubleNode.previous
+            
             doubleNode.previous = None
             doubleNode.next = self.head
+            self.head.previous = doubleNode
             self.head = doubleNode
             return         
 
@@ -80,7 +85,7 @@ class LRU_Cache(object):
 
     def set(self, key, value):
         # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item. 
-        if (key in self.cache):
+        if (key in self.cache and self.cache[key]!=None):
             self.cache[key].value.val = value
             self.keyList.moveToFront(self.cache[key])
         else:
@@ -112,6 +117,34 @@ print(our_cache.get(6))       # return 6
 our_cache.set(7,7)
 print(our_cache.get(1))       # return -1 as was last retrieved/set item
 
-our_cache.set('my key', {'a nested object': 'works'})
-print(our_cache.get('my key')) #should return {'a nested object': 'works'}
+our_cache.set('mykey', {'a nested object': 'works'})
+print(our_cache.get('mykey')) #should return {'a nested object': 'works'}
 print(our_cache.get(2)) #should return -1
+
+# capacity at two
+our_cache = LRU_Cache(2)
+
+# fill out cache
+our_cache.set(1, 'one')  # older
+our_cache.set(2, 'two')  # newer
+
+# executed a get, this means item 1 is *more* recently used than item 2.
+print(our_cache.get(1))
+
+# add a new item. this should remove item 2 because it is less recently used.
+our_cache.set(3, 'three')
+
+# item 1 should still be present
+print(our_cache.get(1))
+
+# item 2 should deleted (returns -1)
+print(our_cache.get(2))
+our_cache.set('', 'one') #works as an empty string can still be a key in a dictionary though not sure why
+mydict={'': 'Im an empty key'}
+print(mydict[''])
+
+print(our_cache.get(''))
+
+
+our_cache.set(None, 'one') #Works as None is converted into the string None
+print(our_cache.get(None))

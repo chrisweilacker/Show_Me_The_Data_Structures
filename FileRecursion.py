@@ -33,6 +33,7 @@ def find_files(suffix, path):
         return returnList
     except:
         return []
+        
 print(find_files('.c', '.'))
 
 print(find_files('.py', '.'))

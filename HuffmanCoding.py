@@ -8,6 +8,10 @@ class TreeNode():
         self.right = None
 
 def huffman_encoding(data):
+    if data == None or data =='':
+        emptryTreeNode = TreeNode((None, 1))
+        return 1, emptryTreeNode
+
     char_freq = {}
     for char in data:
         if char in char_freq:
@@ -115,6 +119,36 @@ if __name__ == "__main__":
 
     a_great_sentence = "This is a much larger sentence that should have a much larger compression amount due to the fact that we have a lot of repeated characters and there are only about 80 or so characters when including capitals lowercase and punctuation that it could be so we should see a much larger compresion amount this time around."
 
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print ("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(encoded_data)))
+    print ("The content of the encoded data is: {0:b}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the decoded data is: {}\n".format(decoded_data))
+
+    a_great_sentence = ""
+
+    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
+    print ("The content of the data is: {}\n".format(a_great_sentence))
+
+    encoded_data, tree = huffman_encoding(a_great_sentence)
+
+    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(encoded_data)))
+    print ("The content of the encoded data is: {0:b}\n".format(encoded_data))
+
+    decoded_data = huffman_decoding(encoded_data, tree)
+
+    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
+    print ("The content of the decoded data is: {}\n".format(decoded_data))
+
+    a_great_sentence = "WWWWWWWWWWWW"
+   
     print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
     print ("The content of the data is: {}\n".format(a_great_sentence))
 
